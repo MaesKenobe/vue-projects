@@ -57,9 +57,9 @@ export default {
         "timerId": this.targetId,
         "timerTitle": this.newTitle,
         "timerDescription": this.newDescription ? this.newDescription : "",
-        "timerStatus": "initial",
-        "timerBuffer": 0,
-        "timerTimestamp": 0,
+        "timerStatus": this.tempTimer.timerStatus ? this.tempTimer.timerStatus : "initial",
+        "timerBuffer": this.tempTimer.timerBuffer ? this.tempTimer.timerBuffer : 0,
+        "timerTimestamp": this.tempTimer.timerTimestamp ? this.tempTimer.timerTimestamp : 0,
       }
 
       this.$emit('saveDialog', tempTimer);
