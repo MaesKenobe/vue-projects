@@ -157,7 +157,6 @@
         this.tempTimer.timerTimestamp = newTimestamp;
         this.saveSpecificTimer(this.tempTimer);
         this.tempTimer = [];
-        console.log(this.memoryTimers);
         this.memoryTimers = this.loadStorage();
       },
       // UPDATE TIMERS.
