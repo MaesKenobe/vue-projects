@@ -1,0 +1,34 @@
+%button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  margin: 0;
+  border: 0;
+  max-width: 100%;
+  background-color: transparent;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: normal;
+  cursor: pointer;
+}
+
+%button--primary {
+  @extend %button;
+  min-width: 61px;
+  @include font-size(20px);
+  font-family: $primary-font;
+  font-weight: 900;
+  color: $caribbean-green;
+  border: 3px solid $caribbean-green;
+  background-color: transparent;
+  transition: background-color $transition-short, color $transition-short;
+
+  &:hover,
+  &:active {
+    color: $white;
+    background-color: $caribbean-green;
+  }
+}

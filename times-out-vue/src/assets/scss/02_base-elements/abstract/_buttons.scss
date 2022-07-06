@@ -1,0 +1,8 @@
+button,
+.button {
+  @extend %button;
+}
+
+.button--primary {
+  @extend %button--primary;
+}

@@ -1,0 +1,116 @@
+// Normal imputs.
+%input--text {
+  appearance: none;
+  display: inline-flex;
+  min-height: 30px;
+  padding: 10px;
+  border: 1px solid $alto;
+  border-radius: 4px;
+  background-color: $alto;
+
+  &:focus {
+    outline: 2px solid $tundora;
+  }
+}
+
+// Text area.
+%textarea {
+  @extend %input--text;
+}
+
+// Checkbox.
+%input--checkbox {
+  position: relative;
+  display: flex;
+
+  // Input.
+  .form-checkbox {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  // Label.
+  label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding-left: 40px;
+    margin-bottom: 0;
+
+    &:before,
+    &:after {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    &:before {
+      background-color: $alto;
+    }
+
+    &:after {
+      z-index: 1;
+      opacity: 0;
+      background-color: transparent;
+      background-image: url('~@/assets/images/icons/grey-tick.svg');
+      background-size: 20px 20px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transform: scale(0, 0);
+      transition: opacity $transition-short, transform $transition-short;
+    }
+  }
+
+  // Actions.
+  .form-checkbox:checked + label {
+    &:after {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
+  }
+}
+
+// Radio.
+%input--radio {
+  display: flex;
+
+  // Input.
+  .form-radio {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 6px solid $alto;
+    margin-right: 10px;
+    margin-bottom: 0;
+    border-radius: 50%;
+    background-color: $alto;
+    cursor: pointer;
+    transition: background-color $transition-short;
+
+    &:checked {
+      background-color: $tundora;
+    }
+  }
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    margin-bottom: 0;
+  }
+}

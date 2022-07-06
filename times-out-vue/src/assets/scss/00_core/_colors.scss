@@ -1,0 +1,78 @@
+/**
+* @file
+* Colors
+*
+* Colors variables for the whole project.
+*/
+
+// For naming the colors, please take in account the convention of this url:
+// https://chir.ag/projects/name-that-color/
+
+$black:               #000000;
+$white:               #FFFFFF;
+
+// Grayscale
+$cod-grey:            #1E1E1E;
+$mine-shaft:          #323232;
+$tundora:             #4B4B4B;
+$dove-grey:           #6E6E6E;
+$dusty-grey:          #969696;
+$silver:              #C8C8C8;
+$alto:                #DCDCDC;
+$gallery:             #F0F0F0;
+$wild-sand:           #F5F4F5;
+
+/**
+*
+* Nestlé Identity / Corporative colors.
+*
+*/
+
+// Primary Oak colors.
+$ebb:                 #E8E5E2;
+$swirl:               #D1CBC5;
+$silk:                #B9B1A8;
+$zorba:               #A2968A;
+$makara:              #8B7C6D;
+$kabul:               #64513D; // Nestlé Oak default color.
+$zeus:                #30261D;
+
+// Secondary Light.
+$cornflower:          #97CAEB;
+$aqua-island:         #99D9D9;
+$conifer:             #A2D45E;
+$bright-sun:          #FAE345;
+$flush-orange:        #FF8300;
+$persimmon:           #FF595A;
+$persian-pink:        #EE6FBB;
+$light-wisteria:      #CB8BDA;
+
+// Secondary Medium.
+$cerulean:            #00A0DF;
+$persian-green:       #00AFAA;
+$christi:             #61A60E;
+$supernova:           #FFC600;
+$vermillion:          #FF4D00;
+$monza:               #D50037;
+$lipstick:            #CB007B;
+$amethyst:            #B14FC5;
+
+// Secondary Dark.
+$bahama-blue:         #0065A1;
+$blue-lagoon:         #007481;
+$fun-green:           #006937;
+$web-orange:          #F5A800;
+$punch:               #D64123;
+$carmine:             #AB0033;
+$rose-bud-cherry:     #8D0E57;
+$honey-flower:        #6F2277;
+
+// Cocomore.
+$caribbean-green:     #07E2AD;
+
+// Hue colors.
+// We need to color svg images with css filters, the values are taken from:
+// https://codepen.io/sosuke/pen/Pjoqqp
+$white-hue: brightness(0) saturate(100%) invert(100%) sepia(49%) saturate(0%) hue-rotate(99deg) brightness(105%) contrast(100%);
+$tundora-hue: brightness(0) saturate(100%) invert(30%) sepia(0%) saturate(10%) hue-rotate(230deg) brightness(87%) contrast(85%);
+$caribbean-green-hue: brightness(0) saturate(100%) invert(81%) sepia(29%) saturate(6170%) hue-rotate(113deg) brightness(98%) contrast(95%);

@@ -1,0 +1,32 @@
+/**
+ * @file
+ * Theme base styling following the SMACSS approach adapted for Drupal
+ *
+ * @copyright  Cocomore AG 2018 <http://www.cocomore.com>
+ */
+
+// Reset and helper imports.
+@import "partials/reset";
+@import "partials/utilities";
+
+// Contains custom variables and twitter bootstrap variables override.
+@import "00_core/colors";
+@import "00_core/variables";
+@import "00_core/fonts";
+@import "00_core/breakpoints";
+@import "00_core/mixins";
+@import "00_core/extends";
+@import "00_core/animations";
+
+// Only necessary bootstrap classes.
+@import "~@/../node_modules/bootstrap/dist/css/bootstrap-grid.min";
+
+// Base abstract import.
+@import "01_base/abstract/base";
+@import "01_base/abstract/media";
+@import "01_base/abstract/typography";
+@import "02_base-elements/abstract/buttons";
+@import "02_base-elements/abstract/forms";
+@import "02_base-elements/abstract/lists";
+@import "02_base-elements/abstract/pager";
+@import "02_base-elements/abstract/tables";

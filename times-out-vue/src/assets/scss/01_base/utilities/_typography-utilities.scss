@@ -1,0 +1,237 @@
+/**
+* @file
+* Typography helpers.
+*
+*/
+
+@mixin h1($margin: "") {
+  margin-bottom: 20px;
+  @include font-size(29px);
+  line-height: 1.1;
+
+  @include scriber {
+    font-family: font-value('font-family-primary');
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  @if $margin != "" {
+    margin-bottom: $margin;
+  }
+
+  @include breakpoint(md) {
+    @include font-size(31px);
+  }
+}
+
+@mixin h2($margin: "") {
+  margin-bottom: 20px;
+  @include font-size(24px);
+  line-height: 1.1;
+
+  @include scriber {
+    font-family: font-value('font-family-primary');
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  @if $margin != "" {
+    margin-bottom: $margin;
+  }
+
+  @include breakpoint(md) {
+    @include font-size(26px);
+  }
+}
+
+@mixin h3($margin: "") {
+  margin-bottom: 20px;
+  @include font-size(20px);
+  line-height: 1.1;
+
+  @include scriber {
+    font-family: font-value('font-family-primary');
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  @if $margin != "" {
+    margin-bottom: $margin;
+  }
+
+  @include breakpoint(md) {
+    @include font-size(22px);
+  }
+}
+
+@mixin h4($margin: "") {
+  margin-bottom: 20px;
+  @include font-size(17px);
+  line-height: 1.1;
+
+  @include scriber {
+    font-family: font-value('font-family-primary');
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  @if $margin != "" {
+    margin-bottom: $margin;
+  }
+
+  @include breakpoint(md) {
+    @include font-size(19px);
+  }
+}
+
+@mixin h5($margin: "") {
+  margin-bottom: 20px;
+  @include font-size(15px);
+  line-height: 1.1;
+
+  @include scriber {
+    font-family: font-value('font-family-primary');
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  @if $margin != "" {
+    margin-bottom: $margin;
+  }
+
+  @include breakpoint(md) {
+    @include font-size(17px);
+  }
+}
+
+@mixin h6($margin: "") {
+  margin-bottom: 20px;
+  @include font-size(14px);
+  line-height: 1.1;
+
+  @include scriber {
+    font-family: font-value('font-family-primary');
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  @if $margin != "" {
+    margin-bottom: $margin;
+  }
+
+  @include breakpoint(md) {
+    @include font-size(16px);
+  }
+}
+
+%text-formatted {
+  margin: 0;
+  padding: 0;
+
+  // Paragraphs.
+  p {
+    margin-bottom: 14px;
+  }
+
+  // Links.
+  a {
+    color: inherit;
+
+    &:visited {
+      color: inherit;
+    }
+  }
+
+  // Lists.
+  ul,
+  ol {
+    padding-left: 15px;
+    margin-bottom: 15px;
+
+    > li {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-start;
+      list-style-type: none;
+      margin-bottom: 5px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &:before {
+        position: relative;
+        display: inline-flex;
+        margin-right: 5px;
+        min-width: 25px;
+        font-size: inherit;
+        line-height: inherit;
+      }
+    }
+  }
+
+  ol {
+    counter-reset: item;
+
+    > li {
+      &:before {
+        content: counter(item) ".";
+        counter-increment: item;
+      }
+    }
+  }
+
+  ul {
+    > li {
+      &:before {
+        content: "•";
+      }
+    }
+  }
+
+  // Quotes.
+  cite,
+  blockquote,
+  q {
+    margin-bottom: 15px;
+    font-style: italic;
+
+    > * {
+      &:first-child {
+        &:before {
+          position: relative;
+          display: inline;
+          content: "„";
+        }
+      }
+
+      &:last-child {
+        &:after {
+          position: relative;
+          display: inline;
+          content: "”";
+        }
+      }
+    }
+  }
+
+  // Bold.
+  strong,
+  b {
+    font-weight: 700;
+  }
+
+  // Italic.
+  i,
+  em {
+    font-style: italic;
+  }
+
+  // No margin bottom for last child.
+  > * {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

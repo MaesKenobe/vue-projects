@@ -1,0 +1,67 @@
+/**
+ * @file
+ * Breakpoints
+ *
+ * With these breakpoints we will define how the page layout works.
+ * For reference, below are the grid default breakpoints and max-widths defined by Bootstrap 4.
+ * https://getbootstrap.com/docs/4.4/layout/grid/#grid-tiers
+ *
+ * $grid-breakpoints: (
+ *   xs: 0,
+ *   sm: 576px,
+ *   md: 768px,
+ *   lg: 992px,
+ *   xl: 1200px,
+ * );
+ *
+ * $container-max-widths: (
+ *   sm: 540px,
+ *   md: 720px,
+ *   lg: 960px,
+ *   xl: 1140px
+ * );
+ *
+ */
+
+// Modified version of this variable, taking the values from drupal and adding a fallback.
+$grid-breakpoints: (
+  xs: 0,
+  sm: 415px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1440px,
+  max: 1440px
+);
+
+$container-max-widths: (
+  xs: 100%,
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+  max: 1320px
+);
+
+/*
+ * Usage:
+ * @include breakpoint(md){
+ *   background: blue;
+ * }
+ */
+@mixin breakpoint($brk, $brk2: false) {
+  @if $brk2 {
+    $max-brk2-val: map-get($grid-breakpoints, $brk2) - 1;
+    @media (min-width: map-get($grid-breakpoints, $brk)) and (max-width: $max-brk2-val) {
+      @content;
+    }
+  }
+  @else {
+    @media (min-width: map-get($grid-breakpoints, $brk)) {
+      @content;
+    }
+  }
+}
+
+$max-width-container: map-get($grid-breakpoints, max);

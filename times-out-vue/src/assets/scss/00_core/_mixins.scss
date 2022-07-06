@@ -1,0 +1,247 @@
+/**
+* @file
+* Mixins
+*
+*/
+
+@mixin clearfix() {
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+// Basic functions.
+
+@function calculate-rem($size) {
+  $rem-size: $size / 16px;
+  @return #{$rem-size}rem;
+}
+
+$browser-context: 16;
+
+@function calculate-em($pixels, $context: $browser-context) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+
+  @return $pixels / $context * 1em;
+}
+
+// Typography.
+
+@mixin font-size($size, $sledge-hammer: "") {
+  font-size: calculate-rem($size) #{$sledge-hammer};
+}
+
+@mixin line-height($size) {
+  line-height: calculate-rem($size);
+}
+
+@mixin heading($size, $color: "") {
+  @extend %#{$size};
+
+  @if $color != "" {
+    color: $color;
+  }
+}
+
+// Fluid typography.
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      font-size: $min-font-size;
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+      }
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size;
+      }
+    }
+  }
+}
+
+@mixin fluid-height($min-vw, $max-vw, $min-line-height, $max-line-height) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-line-height);
+  $u4: unit($max-line-height);
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      line-height: $min-line-height;
+      @media screen and (min-width: $min-vw) {
+        line-height: calc(#{$min-line-height} + #{strip-unit($max-line-height - $min-line-height)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+      }
+      @media screen and (min-width: $max-vw) {
+        line-height: $max-line-height;
+      }
+    }
+  }
+}
+
+// Truncate text vertically (Only for webkit compatible browsers).
+@mixin truncate-vertically($rows) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $rows;
+  -webkit-box-orient: vertical;
+}
+
+// Truncate text horizontally.
+@mixin truncate-horizontally {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// IE11 custom styles.
+@mixin ifIE {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @content;
+  }
+}
+
+// Aspect ratio mixin.
+@mixin aspect-ratio($aspectRatio) {
+  aspect-ratio: $aspectRatio;
+
+  // Fallback for Safari 14.1 and old browsers.
+  @supports not (aspect-ratio: auto) {
+    img {
+      position: relative;
+    }
+  }
+}
+
+// Mixing to fix Safari border-radius + overflow: hidden + CSS transform issue.
+// Source: https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b
+@mixin safariOverflowFix() {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+}
+
+// Placeholder.
+@mixin placeholder($color) {
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: $color;
+  }
+
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: $color;
+    opacity:  1;
+  }
+
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: $color;
+    opacity:  1;
+  }
+
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: $color;
+  }
+
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: $color;
+  }
+
+  ::placeholder { /* Most modern browsers support this now. */
+    color: $color;
+  }
+}
+
+// Style last row elements inside a flexbox grid.
+@mixin lastItems($columns, $tag) {
+  #{$tag}:nth-child(#{$columns}n + 1):nth-last-child(-n + #{$columns}),
+  #{$tag}:nth-child(#{$columns}n + 1):nth-last-child(-n + #{$columns}) ~ #{$tag} {
+    @content;
+  }
+}
+
+// Use a standard image as background image.
+@mixin imagesetBg($path, $fileName, $ext, $double: "") {
+  background-image: url($path + $fileName + '.' + $ext);
+  background-image: image-set(
+    url($path + $fileName + '.' + $ext ) 1x,
+  );
+
+  @if $double == "double" {
+    background-image: image-set(
+      url($path + $fileName + '.' + $ext) 1x,
+      url($path + $fileName + '-2x' + '.' + $ext) 2x
+    );
+  }
+}
+
+// Use a webp image as background image.
+@mixin webpBg($path, $fileName, $ext, $double: "") {
+  background-image: url($path + $fileName + '.' + $ext);
+  background-image: image-set(
+    url($path + $fileName + '.webp' ) 1x,
+  );
+
+  @if $double == "double" {
+    background-image: image-set(
+      url($path + $fileName + '.webp' ) 1x,
+      url($path + $fileName + '-2x.webp') 2x
+    );
+  }
+}
+
+/*
+  Example of use:
+
+  .selector {
+    @include webpBg('../images/', 'screenshot-mobile', 'jpg', 'double');
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    @include breakpoint(md) {
+      @include webpBg('../images/', 'screenshot-desktop', 'jpg', 'double');
+    }
+  }
+
+  For double size images, the parameter "double" has to be parsed (it's optional), and an image with the same name but ended in -2x has to be added to the folder.
+*/
+
+// Custom aspect ratio.
+@mixin customAspectRatio($percentage, $ratio, $spacing: "") {
+  // The custom spacing adds an extra spacing to the image to create an asymmetrical look and feel.
+  $custom_spacing: 15px;
+
+  @if $spacing != "" {
+    $custom_spacing: #{$spacing};
+  }
+
+  width: calc(#{$percentage} - #{$custom_spacing});
+  padding-top: calc((#{$percentage} - #{$custom_spacing}) * (1/#{$ratio}));
+  aspect-ratio: #{$ratio};
+}
+
+/*
+  Example of use:
+
+  .selector {
+    @include customAspectRatio(50%, 1/1);
+
+    @include breakpoint(md) {
+      @include customAspectRatio(50%, 16/9);
+    }
+  }
+*/

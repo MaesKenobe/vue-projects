@@ -1,0 +1,29 @@
+/**
+* @file
+* Mixins
+*
+* Media is defined at twb so we need to reset some values for media entities.
+*/
+
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border-style: none;
+}
+
+svg {
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+
+  &:focus {
+    outline: none;
+  }
+}

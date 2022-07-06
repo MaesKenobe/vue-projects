@@ -1,0 +1,7 @@
+body {
+  background-color: $gallery;
+
+  &.no-scroll {
+    @extend %no-scroll;
+  }
+}

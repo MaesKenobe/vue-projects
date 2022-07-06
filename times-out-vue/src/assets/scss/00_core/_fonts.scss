@@ -1,0 +1,160 @@
+/**
+* @file
+* Font families and tools.
+*
+*/
+
+// Font families.
+
+/*
+Example of font families definition:
+
+// Mutiple files font.
+$font-dejavu: "Dejavu Sans", Arial, sans serif;
+
+@font-face {
+  font-family: "DejaVu Sans";
+  src: url("fonts/DejaVuSans.woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DejaVu Sans";
+  src: url("fonts/DejaVuSans-Bold.woff");
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DejaVu Sans";
+  src: url("fonts/DejaVuSans-Oblique.woff");
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DejaVu Sans";
+  src: url("fonts/DejaVuSans-BoldOblique.woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+// Single file font.
+$font-verdana: "Verdana", Arial, sans-serif;
+
+@font-face {
+  font-family: "Verdana";
+  src: url("fonts/verdana.woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+Important!: In any case, use an absolute path to load the fonts, otherwise, relative paths can cause 404 problems due to dependencies.
+*/
+
+// Font and variables definition
+
+$primary-font: "Aktiv Grotesk", Arial, Helvetica, sans-serif;
+
+@font-face {
+  font-family: 'Aktiv Grotesk';
+  src:
+    url('~@/assets/fonts/Aktiv-Grotesk/regular/5c9b4351-3407-4fab-96a1-d097522bb217.woff') format('woff'),
+    url('~@/assets/fonts/Aktiv-Grotesk/regular/d1af32f0-173d-417a-9c5e-abc33c4fd20c.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aktiv Grotesk';
+  src:
+    url('~@/assets/fonts/Aktiv-Grotesk/bold/b58d0e0d-fcd2-4365-bd63-c85a8ae3ed4d.woff') format('woff'),
+    url('~@/assets/fonts/Aktiv-Grotesk/bold/17d11d65-4e0e-4681-88ab-4c5faa2fc3bf.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aktiv Grotesk';
+  src:
+    url('~@/assets/fonts/Aktiv-Grotesk/black/910be61b-e2f1-42b0-addb-21fcdd956980.woff') format('woff'),
+    url('~@/assets/fonts/Aktiv-Grotesk/black/e0dadbd7-9556-40bd-8fa2-00cb7ec60a92.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aktiv Grotesk';
+  src:
+    url('~@/assets/fonts/Aktiv-Grotesk/black-italic/f158040c-2d97-44e5-94e5-34bbf1dfa224.woff') format('woff'),
+    url('~@/assets/fonts/Aktiv-Grotesk/black-italic/b303c117-0917-4edb-bcb9-9e26efe87ed8.woff2') format('woff2');
+  font-weight: 900;
+  font-style: italic;
+}
+
+
+// Font selector by language.
+
+$font-groups: (
+  // Default.
+  'html': (
+    'font-family-primary': $primary-font, // Please use here a font-variable.
+    'font-family-secondary': 'Arial' // Please use here a font-variable.
+  ),
+  // Custom languages. Uncomment if we have to give support to Eastern languages.
+  /*
+  'html:lang(tr)': (
+    'font-family-primary': 'Arial', // Please use here a font-variable.
+    'font-family-secondary': 'Times New Roman' // Please use here a font-variable.
+  ),
+  'html:lang(ru)': (
+    'font-family-primary': 'Georgia', // Please use here a font-variable.
+    'font-family-secondary': 'Garamond' // Please use here a font-variable.
+  )
+  */
+);
+
+$current-font: null; // Don't touch, this is only used by the scriber mixin.
+
+// Function to get the proper value in the array.
+@function font-value($property, $font: $current-font) {
+  @return map-get($font, $property);
+}
+
+// Mixing to call the scriber, it renders first the selector and then the desired property.
+@mixin scriber($fonts: $font-groups) {
+  @each $selector, $font in $fonts {
+    $current-font: $font !global;
+    #{$selector} & {
+      @content;
+    }
+  }
+}
+
+
+/*
+Example of use:
+
+.element__class {
+  @include scriber {
+    font-family: font-value('font-family-primary');
+  }
+}
+
+Generated css code:
+
+html:lang(tr) {
+  .element__class {
+    font-family: 'Arial';
+  }
+}
+
+html:lang(ru) {
+  .element__class {
+    font-family: 'Georgia';
+  }
+}
+
+*/
